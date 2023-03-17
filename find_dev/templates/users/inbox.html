@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <main class="inbox my-xl">
+        <div class="content-box">
+            <h3 class="inbox__title">Новые сообщения(<span>{{ unread_messages }}</span>)</h3>
+            <ul class="messages">
+                {% for message in message_requests %}
+                    {% if message.is_read %}
+                        <li class="message">
+                            {% else %}
+                        <li class="message message--unread">
+                    {% endif %}
+                <a href="{% url 'message' pk=message.id %}">
+                    <span class="message__author">От: {{ message.sender }}</span>
+                    <span class="message__subject">Тема: {{ message.subject }}</span>
+                    <span class="message__date">{{ message.created_at }}</span>
+                </a>
+                </li>
+
+                {% endfor %}
+
+            </ul>
+        </div>
+    </main>
+{% endblock content %}
